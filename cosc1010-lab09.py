@@ -79,6 +79,84 @@
 # - Repeat the loop as needed.
 # - AFTER the loop, print how many orders were placed.
 
+class Pizza:
+    def __init__(mine, size, sauce='red'):
+        mine.sauce = sauce
+        mine.daSize(size)
+        mine.toppings = ['cheese']  
+    def daSize(mine, size):
+        if (size, int) and size >= 10:
+            mine.size = size
+        else:
+            mine.size = 10  
+    def getSize(mine):
+        return mine.size
+    def getSauce(mine):
+        return mine.sauce
+    def addToppings(mine, *new_toppings):
+        mine.toppings.extend(new_toppings)
+    def getToppings(mine):
+        return mine.topping
+    def getAmountOfToppings(mine):
+        return len(mine.toppings)
+class Pizzeria:
+    price_per_topping = 0.30  
+    price_per_inch = 0.60    
+    def __init__(mine):
+        mine.orders = 0  
+        mine.pizzas = []
+    def placeOrder(mine):
+        size = int(input("enter the size of pizza as a whole number. The smallest size is 10"))
+        sauce = input("enter the kind of sauce would you like? Leave blank for red sauce.")
+        if sauce == "": 
+            sauce = "red"  
+        toppings = []
+        print("enter the toppings you would like, leave blank when finished")
+        while True:
+            topping = input("Add topping: ").strip()
+            if topping == "":
+                break
+            elif topping:
+                toppings.append(topping)
+        pizza = Pizza(size, sauce)
+        pizza.addToppings(*toppings)
+        mine.pizzas.append(pizza)
+        mine.orders += 1  
+        mine.getReceipt(pizza)
+    def getPrice(mine, pizza):
+        size_price = pizza.getSize() * Pizzeria.price_per_inch
+        topping_price = pizza.getAmountOfToppings() * Pizzeria.price_per_topping
+        return size_price + topping_price
+    def getReceipt(mine, pizza):
+        size = pizza.getSize()
+        sauce = pizza.getSauce()
+        toppings = pizza.getToppings()
+        price = self.getPrice(pizza)
+        topping_price = pizza.getAmountOfToppings() * Pizzeria.price_per_topping
+        size_price = size * Pizzeria.price_per_inch
+        print("\nYou ordered a", f"{size}", "pizza with", sauce, "sauce and the following toppings: pepperoni")
+        for topping in toppings:
+            print(f"{' ' * 65}{topping}")
+        print(f"You ordered a {size}\" pizza for {size_price:.1f}")
+        print(f"You had {pizza.getAmountOfToppings()} topping(s) for ${topping_price:.30f}")
+        print(f"Your total price is ${price:.2f}\n")
+    def getNumberOfOrders(mine):
+        return mine.orders
+def da_pizza():
+    pizzeria = Pizzeria() 
+    while True:
+        order = input("Would you like to place an order? exit to exit").lower()
+        if order == "exit":
+            break
+        elif order == "yes":
+            pizzeria.placeOrder()
+        else:
+            print("Invalid. type 'yes' to order or 'exit' to quit.")
+    print(f"Total number of orders placed: {pizzeria.getNumberOfOrders()}")
+if da_pizza == "da_pizza":
+    da_pizza()
+
+
 
 # Example output:
 """
